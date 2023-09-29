@@ -7,6 +7,8 @@ const util = require("util");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require('uuid');
 const { Pool } = require('pg');
+const axios = require('axios');
+const nodemailer = require("nodemailer");
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +20,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'insta',
   password: 'vc@123',
-  port: 5432, // Default PostgreSQL port
+  port: 5432, 
 });
 
 app.post("/insta/user/register", async (req, res) => {
@@ -41,11 +43,38 @@ let values = []
 for(let key in record){
   values.push(record[key])
 }
-console.log(values)
 
 
-newRegisterQuery(columns,values)
-  res.status(200).json(record);
+const transporter = nodemailer.createTransport({
+    service: "Gmail", 
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: "pr1650644@gmail.com",
+        pass: "cuch bpxd ojsw bzgz",
+    },
+});
+
+const randomNumber = Math.floor(Math.random() * 9000) + 1000;
+
+const mailOptions = {
+    from: "pr1650644@gmail.com",
+    to: "ashikasuthar@gmail.com",
+    subject: "Verification Code",
+    text: `This is One Time Password verification code : ${randomNumber}`,
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.error("Error sending email:", error);
+    } else {
+        console.log("Email sent:", info.response);
+    }
+});
+
+res.status(200).json("success")
+// newRegisterQuery(columns,values)
 });
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {

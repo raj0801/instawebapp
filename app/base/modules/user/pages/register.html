@@ -5,37 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/app/assets/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/app/assets/css/base.css">
     <title>Insta</title>
 </head>
 
 <body>
     <form class="row g-3 p-3" id="form">
-        <div class="col-md-6">
-            <label for="inputFirstName" class="form-label">First name :</label>
-            <input type="text" class="form-control" id="inputFirstName">
+        <div class="col-md-6" style="position: relative;">
+            <label for="inputFirstName" class="form-label" >First name :</label>
+            <input type="text" class="form-control" id="inputFirstName" required>
+            
         </div>
         <div class="col-md-6">
             <label for="inputLastName" class="form-label">Last name :</label>
             <input type="text" class="form-control" id="inputLastName">
         </div>
-        
-        <div class="col-md-6">
+
+        <div class="col-md-6 position-relative">
             <label for="inputEmail" class="form-label">Email Id :</label>
-            <input type="email" class="form-control" id="inputEmail">
+            <input type="email" class="form-control" id="inputEmail" required>
+            <div class="invalid-tooltip"></div>
         </div>
         <div class="col-md-4">
             <label for="inputPassword" class="form-label">Password :</label>
-            <input type="password" class="form-control" id="inputPassword">
+            <input type="password" class="form-control" id="inputPassword" minlength="8" required>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 position-relative">
             <label for="inputNumber" class="form-label">Mobile No :</label>
-            <input type="number" class="form-control" id="inputNumber">
+            <input type="number" class="form-control" id="inputNumber" minlength="10" required>
+            <div class="invalid-tooltip"></div>
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary" >Submit</button>
+            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
         </div>
     </form>
 
+    <div class="modal"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered hide">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Enter Verification Code</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label for="otp" class="form-label">Verification code sent to your number</label>
+                        <input type="text" class="form-control" id="otp">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Confirm</button>
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
 
     <script src="/app/assets/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
